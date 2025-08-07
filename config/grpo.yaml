@@ -1,0 +1,17 @@
+model:
+  name: dnn
+  hidden_layers: [512, 256, 128]
+  act_func: elu
+  norm_func: layer
+
+algorithm: 
+  name: grpo
+  batch_epoch: 1
+  reward: ndcg@10
+
+optimizer: adamw
+
+eval:
+  metrics: ["err", "ndcg"]
+  metric_topn: [3, 10]
+  objective: ndcg@10
