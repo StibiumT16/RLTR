@@ -16,25 +16,6 @@ class BasePointAlgo(ABC):
         return output
     
     def log_pi_batch(self, scores, ranking): # PL
-        '''
-        def logsumexp(inputs, dim=None, keepdim=False):
-            if dim is None:
-                inputs = inputs.view(-1)
-                dim = 0
-            s, _ = torch.max(inputs, dim=dim, keepdim=True)
-            outputs = s + (inputs - s).exp().sum(dim=dim, keepdim=True).log()
-            if not keepdim:
-                outputs = outputs.squeeze(dim)
-            return outputs
-        
-        size, cutoff = ranking.shape
-        subtracts, log_probs = torch.zeros_like(scores), torch.zeros_like(scores)
-        
-        for j in range(cutoff):
-            posj = ranking[:, j]
-            log_probs[:, [j]] = scores.gather(dim = 1, index = posj.unsqueeze(1)) - logsumexp(scores - subtracts, dim=1).view(-1, 1)
-            subtracts[range(size), posj] = scores[range(size), posj] + 1e6
-        '''
         ranked_scores = torch.gather(scores, dim=1, index=ranking)
         logS = torch.flip(torch.logcumsumexp(torch.flip(ranked_scores, dims=[1]), dim=1),dims=[1])
         log_probs = ranked_scores - logS
