@@ -12,10 +12,10 @@ class AttentionRank(BasePointAlgo):
         model.train()
         
         label = input_data['label'].to(device) #[bs, k]
-        label = label.exp() * torch.where(label > 0, 1., 0.)
+        label = torch.where(label > 0, torch.exp(label), 0.)
         norm_label = torch.nan_to_num(label / torch.sum(label, 1, keepdim=True))
         output = model(input_data['feature'].to(device)).squeeze(-1) #[bs, k]
-        loss = F.cross_entropy(output, norm_label)
+        loss = F.binary_cross_entropy_with_logits(output, norm_label, reduction='mean')
         
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), self.clip_grad_norm)
