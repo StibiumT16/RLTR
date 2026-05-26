@@ -17,8 +17,10 @@ python src/main.py -o train \
     --data_path dataset/yahoo \
     --log_path log/yahoo_grpo \
     --model_save_path model/yahoo_grpo.pt \
-    -l 0.0001 -s 10000 
+    -l 0.0001 -s 20000 
 ```
+
+In `example_lr_grid_search.sh`, we provide a script for performing a grid search on the learning rate.
 
 
 ### Model Evaluation
@@ -30,3 +32,5 @@ python src/main.py -o test \
     --model_save_path model/yahoo_grpo.pt \
     --output_path output/yahoo_grpo.csv
 ```
+
+The `output/istella` directory contains test results on the Istella dataset using an MLP (DNN) as the backbone. The number at the end of each filename represents the optimal learning rate obtained through grid search.
