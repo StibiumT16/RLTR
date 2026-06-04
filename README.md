@@ -33,4 +33,4 @@ python src/main.py -o test \
     --output_path output/yahoo_grpo.csv
 ```
 
-The `output/istella` directory contains test results on the Istella dataset using an MLP (DNN) as the backbone. The number at the end of each filename represents the optimal learning rate obtained through grid search.
+The `output` directory contains test results on the Istella and Yahoo datasets using the MLP (DNN) as the backbone. The number at the end of each filename represents the optimal learning rate obtained through grid search.
